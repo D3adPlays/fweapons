@@ -19,6 +19,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -95,13 +96,16 @@ public class mitraillette implements Listener {
         }
     }
 
+
+    public static ArrayList<Player> mitrailletteCd = new ArrayList<Player>;
     @EventHandler
     //On left click
     public void onLeftClick(PlayerInteractEvent event){
         if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (event.getPlayer().getItemInHand().getType() == Material.getMaterial(Objects.requireNonNull(this.plugin.getConfig().getString("Mitraillette-item")))) {
                 Player player = event.getPlayer();
-                if (player.isSneaking()){
+                if (player.isSneaking() && !(mitrailletteCd.contains(player))) {
+                    mitrailletteCd.add(player);
                     event.setCancelled(true);
                     String parsed = event.getItem().getLore().get(0);
                     Integer maxAmo = plugin.getConfig().getInt("Mitraillette-max-amo");
@@ -117,6 +121,7 @@ public class mitraillette implements Listener {
                                         .replace("{current-ammo}", Integer.toString(maxAmo))
                                         .replace("{max-ammo}", Integer.toString(maxAmo)));
                                 event.getItem().setItemMeta(im);
+                                mitrailletteCd.remove(player);
                             }
                         }, 70L);
                     }
