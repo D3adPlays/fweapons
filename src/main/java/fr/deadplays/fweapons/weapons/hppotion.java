@@ -95,6 +95,8 @@ public class hppotion implements Listener {
 
         if(it == null)return;
 
+
+
         if(it.getType() == Material.STICK && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("§cLaser")) {
             if(action == Action.RIGHT_CLICK_AIR) {
                 player.sendMessage("Piu");

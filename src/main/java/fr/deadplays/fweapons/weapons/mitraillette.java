@@ -2,10 +2,12 @@ package fr.deadplays.fweapons.weapons;
 
 import fr.deadplays.fweapons.Utils;
 import fr.deadplays.fweapons.main;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.*;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -13,18 +15,13 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginLogger;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.BlockVector;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
-import sun.java2d.loops.DrawLine;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Random;
-import java.util.logging.LogManager;
 
 public class mitraillette implements Listener {
     private main plugin;
@@ -32,8 +29,6 @@ public class mitraillette implements Listener {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents((Listener)this, (Plugin)plugin);
     }
-
-
     @EventHandler
     //On right click
     public void onRightClick(PlayerInteractEvent event){
@@ -99,28 +94,6 @@ public class mitraillette implements Listener {
             }
         }
     }
-    //on item drop
-    @EventHandler
-    public void onItemDrop(org.bukkit.event.player.PlayerDropItemEvent event){
-        if (event.getItemDrop().getItemStack().getType() == Material.getMaterial(Objects.requireNonNull(this.plugin.getConfig().getString("Mitraillette-item")))) {
-            event.setCancelled(true);
-            ItemStack item = event.getItemDrop().getItemStack();
-            ItemMeta meta = item.getItemMeta();
-            Player player = event.getPlayer();
-            Integer maxAmmo = this.plugin.getConfig().getInt("Mitraillette-max-ammo");
-
-            player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.09);
-            player.getWorld().playSound(player.getLocation(), this.plugin.getConfig().getString("Mitraillette-reload"), 0.5f, 1f);
-            Bukkit.getScheduler().runTaskLater(this.plugin, new Runnable() {
-                @Override
-                public void run() {
-                    player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.1);
-                    meta.setLore(Arrays.asList(maxAmmo.toString()));
-                    item.setItemMeta(meta);
-                }
-            }, 70L);
-        }
-    }
 
     @EventHandler
     //On left click
@@ -130,19 +103,25 @@ public class mitraillette implements Listener {
                 Player player = event.getPlayer();
                 if (player.isSneaking()){
                     event.setCancelled(true);
-                    ItemStack item = event.getItem();
+                    ItemStack item = player.getActiveItem();
                     ItemMeta meta = item.getItemMeta();
                     Integer maxAmmo = this.plugin.getConfig().getInt("Mitraillette-max-ammo");
 
                     player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.09);
                     player.getWorld().playSound(player.getLocation(), this.plugin.getConfig().getString("Mitraillette-reload"), 0.5f, 1f);
+
+                    ItemMeta mitrailletem = item.getItemMeta();
+                    mitrailletem.displayName(Component.text(this.plugin.getConfig().getString("Mitraillette-display-name")
+                            .replace("{current-ammo}", Integer.toString(maxAmmo))
+                            .replace("{max-ammo}", Integer.toString(maxAmmo))));
+                    mitrailletem.lore().set(0, Component.text(this.plugin.getConfig().getString("Mitraillette-max-amo")));
                     Bukkit.getScheduler().runTaskLater(this.plugin, new Runnable() {
                         @Override
                         public void run() {
+                            item.setItemMeta(mitrailletem);
                             player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.1);
-                            meta.setLore(Arrays.asList(maxAmmo.toString()));
                             item.setItemMeta(meta);
-                            player.removePotionEffect(PotionEffectType.SLOW);
+
                         }
                     }, 70L);
                 } else {
