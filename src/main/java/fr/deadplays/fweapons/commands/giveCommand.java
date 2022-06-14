@@ -42,6 +42,7 @@ public class giveCommand implements CommandExecutor {
         grenadeinacpem.setDisplayName("§cGrenade Incapacitante");
         grenadeinacpem.addEnchant(Enchantment.DEPTH_STRIDER, 1, true);
         grenadeinacpem.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        grenadeincape.setItemMeta(grenadeinacpem);
 
 
 
