@@ -1,6 +1,8 @@
 package fr.deadplays.fweapons.commands;
 
+import com.sun.xml.internal.bind.v2.schemagen.Util;
 import fr.deadplays.fweapons.main;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -49,43 +51,44 @@ public class giveCommand implements CommandExecutor {
                 .setItemMeta(mitrailletem);
 
 
-
         if (sender instanceof Player) {
-            Player player = (Player)sender;
+            Player player = (Player) sender;
 
-            if(cmd.getName().equalsIgnoreCase("weapon") && args.length >= 1){
-                if(args[0].equalsIgnoreCase("hppotion")){
-                    player.getInventory().addItem(hppotion);
-                    player.sendMessage(this.plugin.getConfig().getString("give-hppotion"));
+            if (cmd.getName().equalsIgnoreCase("weapon") && args.length >= 1) {
+
+                // Give the weapon on a specific player
+                if (args.length == 2) {
+                    Player target = Bukkit.getPlayer(args[1]);
+                    if (target != null) {
+                        target.getInventory().addItem(hppotion);
+                        target.getInventory().addItem(mitraillete);
+                        target.updateInventory();
+                        player.sendMessage(this.plugin.getConfig().getString("give-weapon-success")
+                                .replace("{player}", target.getName()));
+                    } else if (args.length == 1 && sender instanceof Player && msg.equalsIgnoreCase("hppotion")) {
+                        player.getInventory().addItem(hppotion);
+                        player.updateInventory();
+                        player.sendMessage(this.plugin.getConfig().getString("give-weapon-success")
+                                .replace("{player}", player.getName()
+                                        .replace("{weapon}", "Barre de Survie")));
+
+                    } else if (args.length == 1 && sender instanceof Player && msg.equalsIgnoreCase("mitraillette")) {
+                        player.getInventory().addItem(mitraillete);
+                        player.updateInventory();
+                        player.sendMessage(this.plugin.getConfig().getString("give-weapon-success")
+                                .replace("{player}", player.getName()));
+
+                    } else {
+                        player.sendMessage(this.plugin.getConfig().getString("give-weapon-fail")
+                                .replace("{player}", args[1]));
+
+                    }
                 }
-                if(args[0].equalsIgnoreCase("mitraillette")){
-                    player.getInventory().addItem(mitraillete);
-                    player.sendMessage(this.plugin.getConfig().getString("give-mitraillette"));
-                }
-
-                else{
-                    player.sendMessage(this.plugin.getConfig().getString("give-error"));
-                }
-
-                return true;
-
             }
 
-            else if(cmd.getName().equalsIgnoreCase("weapon")){
-
-                player.sendMessage("§cLancement de la procédure de give.");
-
-                player.getInventory().setItem(3, hppotion);
-                player.getInventory().setItem(4, mitraillete);
-
-                return true;
-
-            }
         }
-
-        sender.sendMessage("§cErreur ! Merci de reesayer.");
+        sender.sendMessage("§c/weapon give <player> <weapon>");
         return false;
 
     }
-
 }

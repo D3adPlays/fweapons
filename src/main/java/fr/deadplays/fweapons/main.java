@@ -49,6 +49,14 @@ public final class main extends JavaPlugin {
         this.config.addDefault("Mitraillette-bullet-range", 50f);
         this.config.addDefault("Mitraillette-damage", 3);
         this.config.addDefault("Mitraillette-recoil", true);
+        // add error reponse for /weapon commands
+        this.config.addDefault("fweapons-error-no-permission", "&cVous n'avez pas la permission d'utiliser cette commande.");
+        this.config.addDefault("give-mitraillette", "Arme : Mitraillette Give");
+        this.config.addDefault("give-hppotion", "Arme : HP Potion Give");
+        // add error reponse for /weapon commands (give-weapon-fail)
+        this.config.addDefault("give-weapon-fail", "&cVous n'avez pas assez de place dans votre inventaire et/ou avez spécifier un carractère invalide.");
+        this.config.addDefault("give-weapon-success", "&aVous avez reçu l'arme : {weapon}");
+
         this.config.options().copyDefaults(true);
         this.saveConfig();
         this.reloadConfig();
