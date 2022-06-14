@@ -158,7 +158,7 @@ public class mitraillette implements Listener {
                         pumpkin.addUnsafeEnchantment(Enchantment.BINDING_CURSE, 1);
                         pumpkin.setItemMeta(pumpkinMeta);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20000, 2));
-                        player.getActivePotionEffects().clear();
+                        player.removePotionEffect(PotionEffectType.SLOW);
                         player.getInventory().setHelmet(pumpkin);
                     }
                 }

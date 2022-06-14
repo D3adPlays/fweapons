@@ -29,13 +29,26 @@ public class giveCommand implements CommandExecutor {
 
         ItemStack hppotion = new ItemStack(Material.GLASS_BOTTLE, 1);
         ItemMeta hppotionm = hppotion.getItemMeta();
+
         hppotionm.setDisplayName("§cBarre de Survie");
         hppotionm.addEnchant(Enchantment.DEPTH_STRIDER, 1, true);
         hppotionm.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         hppotion.setItemMeta(hppotionm);
 
+
+        ItemStack grenadeincape = new ItemStack(Material.SNOWBALL, 1);
+        ItemMeta grenadeinacpem = grenadeincape.getItemMeta();
+
+        grenadeinacpem.setDisplayName("§cGrenade Incapacitante");
+        grenadeinacpem.addEnchant(Enchantment.DEPTH_STRIDER, 1, true);
+        grenadeinacpem.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
+
+
+
         ItemStack mitraillete = new ItemStack(Material.valueOf(this.plugin.getConfig().getString("Mitraillette-item")), 1);
         ItemMeta mitrailletem = mitraillete.getItemMeta();
+
         mitrailletem.setDisplayName(this.plugin.getConfig().getString("Mitraillette-display-name")
                 .replace("{current-ammo}", this.plugin.getConfig().getString("Mitraillette-max-amo"))
                 .replace("{max-ammo}", this.plugin.getConfig().getString("Mitraillette-max-amo")));
