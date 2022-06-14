@@ -1,0 +1,10 @@
+name: FWeapons
+version: '${project.version}'
+main: fr.deadplays.fweapons.main
+api-version: 1.16
+authors: [ deadplays, meliodouil ]
+description: Un plugin d'armes Minecraft
+commands:
+  weapon:
+    description: Une commande de givce d'armes
+    args: sender, cmd, msg, args
