@@ -142,7 +142,7 @@ public class mitraillette implements Listener {
                             player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.1);
                             meta.setLore(Arrays.asList(maxAmmo.toString()));
                             item.setItemMeta(meta);
-                            player.getActivePotionEffects().clear();
+                            player.removePotionEffect(PotionEffectType.SLOW);
                         }
                     }, 70L);
                 } else {
@@ -159,7 +159,7 @@ public class mitraillette implements Listener {
                         pumpkin.setItemMeta(pumpkinMeta);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20000, 2));
                         player.getActivePotionEffects().clear();
-                        player.getInventory().setHelmet(pumpkin);
+                        player.removePotionEffect(PotionEffectType.SLOW);
                     }
                 }
             }
