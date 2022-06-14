@@ -64,30 +64,55 @@ public class giveCommand implements CommandExecutor {
                         target.getInventory().addItem(mitraillete);
                         target.updateInventory();
                         player.sendMessage(this.plugin.getConfig().getString("give-weapon-success")
-                                .replace("{player}", target.getName()));
-                    } else if (args.length == 1 && sender instanceof Player && msg.equalsIgnoreCase("hppotion")) {
+                                .replace("{player}", target.getName()
+                                        .replace("{sender}", player.getName())));
+
+
+                    } else if (args.length == 2 && sender instanceof Player && msg.equalsIgnoreCase("hppotion")) {
                         player.getInventory().addItem(hppotion);
                         player.updateInventory();
-                        player.sendMessage(this.plugin.getConfig().getString("give-weapon-success")
+                        // send success message to sender
+                        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-success-sender")
                                 .replace("{player}", player.getName()
-                                        .replace("{weapon}", "Barre de Survie")));
+                                        .replace("{weapon}", "§cBarre de Survie")));
+                        if(player != sender){
+                            player.sendMessage(this.plugin.getConfig().getString("give-weapon-success")
+                                    .replace("{player}", player.getName()
+                                            .replace("{sender}", sender.getName())
+                                            .replace("{weapon}", "§cBarre de Survie")));
+                        }
 
-                    } else if (args.length == 1 && sender instanceof Player && msg.equalsIgnoreCase("mitraillette")) {
+
+
+                    } else if (args.length == 2 && sender instanceof Player && msg.equalsIgnoreCase("mitraillette")) {
                         player.getInventory().addItem(mitraillete);
                         player.updateInventory();
-                        player.sendMessage(this.plugin.getConfig().getString("give-weapon-success")
-                                .replace("{player}", player.getName()));
+                        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-success-sender")
+                                .replace("{player}", player.getName()
+                                        .replace("{weapon}", "§cMitraillette")));
+                        if(player != sender){
+                            player.sendMessage(this.plugin.getConfig().getString("give-weapon-success")
+                                .replace("{player}", player.getName()
+                                        .replace("{weapon}", "§cMitraillette")));}
+
 
                     } else {
-                        player.sendMessage(this.plugin.getConfig().getString("give-weapon-fail")
+                        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-fail")
                                 .replace("{player}", args[1]));
+                        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-list")
+                                .replace("{weapons}", "Barre de Survie, Mitraillette"));
+
 
                     }
                 }
             }
 
         }
-        sender.sendMessage("§c/weapon give <player> <weapon>");
+        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-fail")
+                .replace("{player}", args[1]));
+        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-list")
+                //replace weapons by the list of weapons
+                .replace("{weapons}", "Barre de Survie, Mitraillette"));
         return false;
 
     }
