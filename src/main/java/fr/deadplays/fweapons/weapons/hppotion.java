@@ -6,11 +6,15 @@ import fr.deadplays.fweapons.main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
@@ -23,6 +27,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 
 public class hppotion implements Listener {
@@ -84,23 +89,10 @@ public class hppotion implements Listener {
             }
 
         }
-        if(it.getType() == Material.SNOWBALL && it.hasItemMeta() && it.getItemMeta().hasDisplayName() && it.getItemMeta().getDisplayName().equalsIgnoreCase("§cGrenade Incapacitante")) {
-            if(action == Action.RIGHT_CLICK_AIR) {
-                it.setAmount(it.getAmount()-1);
-                // On snowball land
-                player.getWorld().createExplosion(player.getLocation(), 0.0F, false, false);
-                // On snowball hit
-                player.getWorld().createExplosion(player.getLocation(), 0.0F, false, false);
 
-
-
-
-
-            }
-
-        }
     }
 
 
 
-}
+};
+
