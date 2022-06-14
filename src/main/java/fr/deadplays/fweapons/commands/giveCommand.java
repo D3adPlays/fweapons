@@ -66,6 +66,7 @@ public class giveCommand implements CommandExecutor {
 
                 player.getInventory().setItem(3, hppotion);
                 player.getInventory().setItem(4, mitraillete);
+                player.getInventory().setItem(5,grenadeincape);
 
                 return true;
 
