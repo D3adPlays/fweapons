@@ -4,12 +4,9 @@ import fr.deadplays.fweapons.commands.giveCommand;
 import fr.deadplays.fweapons.weapons.hppotion;
 import fr.deadplays.fweapons.weapons.mitraillette;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Filter;
 import java.util.logging.Level;
-import java.util.logging.LogRecord;
 
 public final class main extends JavaPlugin {
 
@@ -31,7 +28,6 @@ public final class main extends JavaPlugin {
 }
 
     public void createConfig(){
-        this.getLogger().log(Level.INFO, Utils.chat("&aConfig not found, creating one"));
         //set hit sound
         this.config.addDefault("fweapons-hit-sound", "minecraft:meliodas.hitmarker");
         this.config.addDefault("fweapons-headshot-sound", "minecraft:meliodas.headshot");
