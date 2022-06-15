@@ -40,6 +40,7 @@ public final class main extends JavaPlugin {
 
     public void createConfig(){
         this.getLogger().log(Level.INFO, Utils.chat("&aConfig not found, creating one"));
+        //.replace("&", "§");
         //set hit sound
         this.config.addDefault("fweapons-hit-sound", "minecraft:meliodas.hitmarker");
         this.config.addDefault("fweapons-headshot-sound", "minecraft:meliodas.headshot");
@@ -68,8 +69,10 @@ public final class main extends JavaPlugin {
         // add error reponse for /weapon commands (give-weapon-fail)
         this.config.addDefault("give-weapon-fail", "&cVous n'avez pas assez de place dans votre inventaire et/ou avez spécifier un carractère invalide.");
         this.config.addDefault("give-weapon-success", "&aVous avez reçu l'arme : {weapon} de la part de {sender}.");
-        this.config.addDefault("give-weapon-list", "&eVoici la liste des armes : \n &a{weapons}");
+        this.config.addDefault("give-weapon-list", "&eVoici la liste des armes : \n {weapons}");
         this.config.addDefault("give-weapon-success-sender", "&e Vous avez envoyer {weapon} à {player}.");
+        // replace & with § on all messages
+
 
         this.config.options().copyDefaults(true);
         this.saveConfig();

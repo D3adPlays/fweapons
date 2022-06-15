@@ -1,6 +1,4 @@
 package fr.deadplays.fweapons.commands;
-
-import com.sun.xml.internal.bind.v2.schemagen.Util;
 import fr.deadplays.fweapons.main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -21,9 +19,9 @@ public class giveCommand implements CommandExecutor {
 
     private final main plugin;
 
-    public giveCommand(final main plugin){
+    public giveCommand(final main plugin) {
         this.plugin = plugin;
-        plugin.getCommand("weapon").setExecutor((CommandExecutor)this);
+        plugin.getCommand("weapon").setExecutor((CommandExecutor) this);
     }
 
     @Override
@@ -52,68 +50,56 @@ public class giveCommand implements CommandExecutor {
 
 
         if (sender instanceof Player) {
-            Player player = (Player) sender;
+
+
 
             if (cmd.getName().equalsIgnoreCase("weapon")) {
-
-                // Give the weapon on a specific player
-                if (args.length == 2) {
-                    Player target = Bukkit.getPlayer(args[1]);
-                    if (target != null) {
-                        target.getInventory().addItem(hppotion);
-                        target.getInventory().addItem(mitraillete);
-                        target.updateInventory();
-                        player.sendMessage(this.plugin.getConfig().getString("give-weapon-success")
-                                .replace("{player}", target.getName()
-                                        .replace("{sender}", player.getName())));
-
-
-                    } else if (args.length == 2 && sender instanceof Player && msg.equalsIgnoreCase("hppotion")) {
-                        player.getInventory().addItem(hppotion);
-                        player.updateInventory();
-                        // send success message to sender
-                        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-success-sender")
-                                .replace("{player}", player.getName()
-                                        .replace("{weapon}", "§cBarre de Survie")));
-                        if(player != sender){
-                            player.sendMessage(this.plugin.getConfig().getString("give-weapon-success")
-                                    .replace("{player}", player.getName()
-                                            .replace("{sender}", sender.getName())
-                                            .replace("{weapon}", "§cBarre de Survie")));
+                Player player = (Player) sender;
+                Player target = Bukkit.getPlayer(args[1]);
+                if (target != null) {
+                    // /weapon give <player> <weapon>
+                    if (args.length <= 3) {
+                        if (args[0].equalsIgnoreCase("give")) {
+                            if (args[2].equalsIgnoreCase("hppotion")) {
+                                target.getInventory().addItem(hppotion);
+                                target.sendMessage("§aVous avez reçu une barre de survie");
+                                return true;
+                            } else if (args[2].equalsIgnoreCase("mitraillette")) {
+                                target.getInventory().addItem(mitraillete);
+                                target.sendMessage("§aVous avez reçu une mitraillette");
+                                return true;
                         }
+                        } else if (args[0].equalsIgnoreCase("all")) {
+                            target.getInventory().addItem(hppotion);
+                            target.getInventory().addItem(mitraillete);
+                            target.sendMessage("§aVous avez reçu une barre de survie et une mitraillette");
+                            return true;
 
-
-
-                    } else if (args.length == 2 && sender instanceof Player && msg.equalsIgnoreCase("mitraillette")) {
-                        player.getInventory().addItem(mitraillete);
-                        player.updateInventory();
-                        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-success-sender")
-                                .replace("{player}", player.getName()
-                                        .replace("{weapon}", "§cMitraillette")));
-                        if(player != sender){
-                            player.sendMessage(this.plugin.getConfig().getString("give-weapon-success")
-                                .replace("{player}", player.getName()
-                                        .replace("{weapon}", "§cMitraillette")));}
-
-
-                    } else {
-                        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-fail")
-                                .replace("{player}", args[1]));
-                        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-list")
-                                .replace("{weapons}", "Barre de Survie, Mitraillette"));
-
-
+                        } else {
+                            player.sendMessage("§csyntaxe : /weapon all/give <player> <weapon>");
+                            return true;
+                        }
                     }
+                    if (args[1] == null) {
+                        player.sendMessage("§cErreur de syntaxe");
+                        player.sendMessage("§csyntaxe : /weapon all/give <player> <weapon>");
+
+                        return true;
+                    }
+                    // clear error
+                    if (args[2] == null) {
+                        player.sendMessage("§cErreur de syntaxe");
+                        player.sendMessage("§csyntaxe : /weapon all/give <player> <weapon>");
+                        return true;
+                    }
+
+
                 }
+
             }
-
         }
-        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-fail")
-                .replace("{player}", args[1]));
-        sender.sendMessage(this.plugin.getConfig().getString("give-weapon-list")
-                //replace weapons by the list of weapons
-                .replace("{weapons}", "Barre de Survie, Mitraillette"));
-        return false;
-
+    return false;
     }
 }
+
+
