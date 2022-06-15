@@ -97,7 +97,7 @@ public class mitraillette implements Listener {
     }
 
 
-    public static ArrayList<Player> mitrailletteCd = new ArrayList<Player>;
+    public static ArrayList<Player> mitrailletteCd = new ArrayList<Player>();
     @EventHandler
     //On left click
     public void onLeftClick(PlayerInteractEvent event){

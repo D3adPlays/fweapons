@@ -54,10 +54,10 @@ public class Utils {
         Vector p1 = point1.toVector();
         Vector p2 = point2.toVector();
         Vector vector = p2.clone().subtract(p1).normalize().multiply(space);
-        Particle.DustOptions dustOptions = new Particle.DustOptions(color, 1);
+        Particle.DustOptions dustOptions = new Particle.DustOptions(color, 0);
         double length = 0;
         for (; length < distance; p1.add(vector)) {
-            world.spawnParticle(Particle.REDSTONE, p1.getX(), p1.getY(), p1.getZ(), 1, 0.1f, 0.1f, 0.1f, 0, dustOptions);
+            world.spawnParticle(Particle.REDSTONE, p1.getX(), p1.getY(), p1.getZ(), 1, 0f, 0f, 0f, 0, dustOptions);
             length += space;
         }
     }
