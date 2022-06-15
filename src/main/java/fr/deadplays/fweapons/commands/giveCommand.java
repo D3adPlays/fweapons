@@ -54,7 +54,7 @@ public class giveCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            if (cmd.getName().equalsIgnoreCase("weapon") && args.length >= 1) {
+            if (cmd.getName().equalsIgnoreCase("weapon")) {
 
                 // Give the weapon on a specific player
                 if (args.length == 2) {
