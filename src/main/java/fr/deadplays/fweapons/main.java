@@ -4,12 +4,9 @@ import fr.deadplays.fweapons.commands.giveCommand;
 import fr.deadplays.fweapons.weapons.hppotion;
 import fr.deadplays.fweapons.weapons.mitraillette;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Filter;
 import java.util.logging.Level;
-import java.util.logging.LogRecord;
 
 public final class main extends JavaPlugin {
 
@@ -27,15 +24,6 @@ public final class main extends JavaPlugin {
         new hppotion(this);
         new giveCommand(this);
         new mitraillette(this);
-        Filter f = new Filter(){
-            public boolean isLoggable(LogRecord line){
-                if(line.getMessage().contains("Played sound minecraft:meliodas.")){
-                    return false;
-                }
-                return true;
-            }
-        };
-        PluginLogger.getGlobal().setFilter(f);
     }
 
     public void createConfig(){

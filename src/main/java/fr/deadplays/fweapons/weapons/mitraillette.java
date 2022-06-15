@@ -10,10 +10,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.RayTraceResult;
@@ -27,7 +27,7 @@ public class mitraillette implements Listener {
     private main plugin;
     public mitraillette(final main plugin){
         this.plugin = plugin;
-        Bukkit.getPluginManager().registerEvents((Listener)this, (Plugin)plugin);
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     @EventHandler
     //On right click
@@ -95,6 +95,15 @@ public class mitraillette implements Listener {
             }
         }
     }
+
+    //on drop of mitraillette
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent event){
+        if(event.getItemDrop().getItemStack().getType() == Material.getMaterial(Objects.requireNonNull(this.plugin.getConfig().getString("Mitraillette-item")))){
+            event.setCancelled(true);
+        }
+    }
+
 
 
     public static ArrayList<Player> mitrailletteCd = new ArrayList<Player>();
