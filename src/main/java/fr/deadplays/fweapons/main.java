@@ -4,9 +4,12 @@ import fr.deadplays.fweapons.commands.giveCommand;
 import fr.deadplays.fweapons.weapons.hppotion;
 import fr.deadplays.fweapons.weapons.mitraillette;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Filter;
 import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 public final class main extends JavaPlugin {
 
@@ -24,10 +27,20 @@ public final class main extends JavaPlugin {
         new hppotion(this);
         new giveCommand(this);
         new mitraillette(this);
-
-}
+        Filter f = new Filter(){
+            public boolean isLoggable(LogRecord line){
+                if(line.getMessage().contains("Played sound minecraft:meliodas.")){
+                    return false;
+                }
+                return true;
+            }
+        };
+        PluginLogger.getGlobal().setFilter(f);
+    }
 
     public void createConfig(){
+        this.getLogger().log(Level.INFO, Utils.chat("&aConfig not found, creating one"));
+        //.replace("&", "§");
         //set hit sound
         this.config.addDefault("fweapons-hit-sound", "minecraft:meliodas.hitmarker");
         this.config.addDefault("fweapons-headshot-sound", "minecraft:meliodas.headshot");
@@ -56,8 +69,10 @@ public final class main extends JavaPlugin {
         // add error reponse for /weapon commands (give-weapon-fail)
         this.config.addDefault("give-weapon-fail", "&cVous n'avez pas assez de place dans votre inventaire et/ou avez spécifier un carractère invalide.");
         this.config.addDefault("give-weapon-success", "&aVous avez reçu l'arme : {weapon} de la part de {sender}.");
-        this.config.addDefault("give-weapon-list", "&eVoici la liste des armes : \n &a{weapons}");
+        this.config.addDefault("give-weapon-list", "&eVoici la liste des armes : \n {weapons}");
         this.config.addDefault("give-weapon-success-sender", "&e Vous avez envoyer {weapon} à {player}.");
+        // replace & with § on all messages
+
 
         this.config.options().copyDefaults(true);
         this.saveConfig();
