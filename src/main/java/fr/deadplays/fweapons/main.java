@@ -47,7 +47,7 @@ public final class main extends JavaPlugin {
         this.config.addDefault("fweapons-hit-sound", "minecraft:meliodas.hitmarker");
         this.config.addDefault("fweapons-headshot-sound", "minecraft:meliodas.headshot");
         this.config.addDefault("fweapons-bullet-flyby", "minecraft:meliodas.bulletfliby");
-        this.config.addDefault("fweapons-headshot-multiplier", 1.25);
+        this.config.addDefault("fweapons-headshot-multiplier", 1.75);
         this.config.addDefault("fweapons-resource-pack-url", "https://cdn.discordapp.com/attachments/985278698485858375/986283282381557770/eMeliodouilWeapon.zip");
         this.config.addDefault("fweapons-resource-pack-error", "&cVous devez installer le pack de ressource pour jouer.");
         this.config.addDefault("fweapons-wallbang-chance-rate", 1);

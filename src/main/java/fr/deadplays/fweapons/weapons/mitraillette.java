@@ -44,7 +44,7 @@ public class mitraillette implements Listener {
 
     @EventHandler
     //On right click
-    public void onRightClick(PlayerInteractEvent event) {
+    public void onRightClick(PlayerInteractEvent event) throws NullPointerException {
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (event.getPlayer().getItemInHand().getType() == Material.getMaterial(Objects.requireNonNull(this.plugin.getConfig().getString("Mitraillette-item")))) {
                 Player player = event.getPlayer();
@@ -124,10 +124,12 @@ public class mitraillette implements Listener {
                     Integer amoLeft = Integer.parseInt(parsed);
                     if (amoLeft <= 0) {
                         event.getPlayer().playSound(player.getLocation(), this.plugin.getConfig().getString("Mitraillette-reload"), 1.0f, 1.0f);
+                        event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.08);
                         Bukkit.getScheduler().runTaskLater(this.plugin, new Runnable() {
                             @Override
                             public void run() {
                                 mitrailletteCd.remove(player);
+                                event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.01);
                                 ItemMeta im = event.getItem().getItemMeta();
                                 im.setLore(Arrays.asList(Integer.toString(maxAmo)));
                                 im.setDisplayName(plugin.getConfig().getString("Mitraillette-display-name")
