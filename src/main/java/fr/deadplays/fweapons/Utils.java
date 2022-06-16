@@ -2,6 +2,7 @@ package fr.deadplays.fweapons;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.*;
+import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.util.Random;
@@ -24,6 +25,13 @@ public class Utils {
         return rand.nextFloat() * (max - min) + min;
 
     }
+
+    public static void debugPlayer(Player player, String message) {
+        if (true) {
+            player.sendMessage(message);
+        }
+    }
+    public static void debugPrint(String message) {if (main.getPlugin().getConfig().getBoolean("fweapons-debug-mode"))main.getPlugin().getLogger().info(message);}
 
     public static String getStringLocation(final Location l) {
         if (l == null) {
@@ -54,10 +62,10 @@ public class Utils {
         Vector p1 = point1.toVector();
         Vector p2 = point2.toVector();
         Vector vector = p2.clone().subtract(p1).normalize().multiply(space);
-        Particle.DustOptions dustOptions = new Particle.DustOptions(color, 0);
+        Particle.DustOptions dustOptions = new Particle.DustOptions(color, 0.5f);
         double length = 0;
         for (; length < distance; p1.add(vector)) {
-            world.spawnParticle(Particle.REDSTONE, p1.getX(), p1.getY(), p1.getZ(), 1, 0f, 0f, 0f, 0, dustOptions);
+            world.spawnParticle(Particle.REDSTONE, p1.getX(), p1.getY(), p1.getZ(), 1, 0f, 0f, 0f, 1, dustOptions);
             length += space;
         }
     }

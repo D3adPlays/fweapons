@@ -1,6 +1,7 @@
 package fr.deadplays.fweapons;
 
 import fr.deadplays.fweapons.commands.giveCommand;
+import fr.deadplays.fweapons.misc.recoilEngine;
 import fr.deadplays.fweapons.weapons.hppotion;
 import fr.deadplays.fweapons.weapons.mitraillette;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -15,20 +16,33 @@ public final class main extends JavaPlugin {
     public main() {
         this.config = this.getConfig();
     }
+
+    public static main getPlugin() {
+        return pluginGetter;
+    }
+
+    private static main pluginGetter;
+
+
     @Override
     public void onEnable() {
+        pluginGetter = this;
         this.getLogger().log(Level.INFO, Utils.chat("&aMade with &c&l<3&a by D3adPlays and Méliodas for &eFuzeIII."));
         this.getLogger().log(Level.INFO, Utils.chat("&aLoading Config"));
         this.createConfig();
         this.getLogger().log(Level.INFO, Utils.chat("&aLoading Commands"));
         new hppotion(this);
         new giveCommand(this);
+        mitraillette.mitrailletteCd.clear();
         new mitraillette(this);
+        new recoilEngine(this);
     }
 
     public void createConfig(){
         this.getLogger().log(Level.INFO, Utils.chat("&aConfig not found, creating one"));
         //.replace("&", "§");
+        //add debug mode
+        this.config.addDefault("fweapons-debug-mode", true);
         //set hit sound
         this.config.addDefault("fweapons-hit-sound", "minecraft:meliodas.hitmarker");
         this.config.addDefault("fweapons-headshot-sound", "minecraft:meliodas.headshot");
@@ -36,6 +50,7 @@ public final class main extends JavaPlugin {
         this.config.addDefault("fweapons-headshot-multiplier", 1.25);
         this.config.addDefault("fweapons-resource-pack-url", "https://cdn.discordapp.com/attachments/985278698485858375/986283282381557770/eMeliodouilWeapon.zip");
         this.config.addDefault("fweapons-resource-pack-error", "&cVous devez installer le pack de ressource pour jouer.");
+        this.config.addDefault("fweapons-wallbang-chance-rate", 1);
 
         this.config.addDefault("Mitraillette-item", "DIAMOND_HOE");
         this.config.addDefault("Mitraillette-reload", "minecraft:meliodas.akreload");
@@ -104,6 +119,13 @@ public final class main extends JavaPlugin {
         this.config.addDefault("give-weapon-list", "&eVoici la liste des armes : \n {weapons}");
         this.config.addDefault("give-weapon-success-sender", "&e Vous avez envoyer {weapon} à {player}.");
         // replace & with § on all messages
+        //add lasergun configuration
+        this.config.addDefault("Lasergun-item", "DIAMOND_HOE");
+        this.config.addDefault("Lasergun-reload", "minecraft:meliodas.akreload");
+        this.config.addDefault("Lasergun-sound", "minecraft:meliodas.akfire");
+        this.config.addDefault("Lasergun-block-hit", "minecraft:meliodas.akloose");
+        this.config.addDefault("Lasergun-reload-sound", "minecraft:meliodas:custom");
+        this.config.addDefault("Lasergun-display-name", Utils.chat("&cLasergun [{current-ammo}/{max-ammo}]"));
 
 
         this.config.options().copyDefaults(true);
