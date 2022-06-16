@@ -74,6 +74,12 @@ public class giveCommand implements CommandExecutor {
 
         poseidonitemm
                 .setLore(Arrays.asList(this.plugin.getConfig().getString("Poseidon-max-amo")));
+        poseidonitemm
+                .addEnchant(Enchantment.LOYALTY, 5, true);
+        poseidonitemm
+                .addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
+        poseidonitemm
+                .isUnbreakable();
         poseidonitem
                 .setItemMeta(poseidonitemm);
 
