@@ -39,6 +39,8 @@ public class giveCommand implements CommandExecutor {
         ItemMeta poseidonitemm = poseidonitem.getItemMeta();
 
 
+
+
         hppotionm
                 .setDisplayName("§cBarre de Survie");
         hppotionm
@@ -68,6 +70,7 @@ public class giveCommand implements CommandExecutor {
                 .setLore(Arrays.asList(this.plugin.getConfig().getString("Invocation-max-amo")));
         invocationitem
                 .setItemMeta(invocationitemm);
+
         poseidonitemm.setDisplayName(this.plugin.getConfig().getString("Poseidon-display-name")
                 .replace("{max-ammo}", this.plugin.getConfig().getString("Poseidon-max-amo"))
                 .replace("{current-ammo}", this.plugin.getConfig().getString("Poseidon-max-amo")));
@@ -80,6 +83,9 @@ public class giveCommand implements CommandExecutor {
                 .addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
         poseidonitemm
                 .isUnbreakable();
+
+        poseidonitemm
+                .addEnchant(Enchantment.BINDING_CURSE, 1, true);
         poseidonitem
                 .setItemMeta(poseidonitemm);
 
