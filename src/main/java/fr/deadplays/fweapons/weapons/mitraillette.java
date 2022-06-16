@@ -129,7 +129,7 @@ public class mitraillette implements Listener {
                             @Override
                             public void run() {
                                 mitrailletteCd.remove(player);
-                                event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.01);
+                                event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.1);
                                 ItemMeta im = event.getItem().getItemMeta();
                                 im.setLore(Arrays.asList(Integer.toString(maxAmo)));
                                 im.setDisplayName(plugin.getConfig().getString("Mitraillette-display-name")
