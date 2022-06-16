@@ -3,7 +3,6 @@ package fr.deadplays.fweapons;
 import fr.deadplays.fweapons.commands.giveCommand;
 import fr.deadplays.fweapons.weapons.hppotion;
 import fr.deadplays.fweapons.weapons.mitraillette;
-import fr.deadplays.fweapons.weapons.poseidon;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,7 +24,6 @@ public final class main extends JavaPlugin {
         new hppotion(this);
         new giveCommand(this);
         new mitraillette(this);
-        new poseidon(this);
     }
 
     public void createConfig(){
@@ -82,7 +80,6 @@ public final class main extends JavaPlugin {
         this.config.addDefault("Invocation-recoil", true);
 
         this.config.addDefault("Poseidon-item", "TRIDENT");
-        this.config.addDefault("Poseidon-item-name", "Poseidon");
         this.config.addDefault("Poseidon-reload", "minecraft:meliodas.poseidonreload");
         this.config.addDefault("Poseidon-sound", "minecraft:meliodas.poseidonfire");
         this.config.addDefault("Poseidon-block-hit", "minecraft:meliodas.poseidonoff");
