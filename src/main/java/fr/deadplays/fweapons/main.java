@@ -50,6 +50,50 @@ public final class main extends JavaPlugin {
         this.config.addDefault("Mitraillette-bullet-range", 50f);
         this.config.addDefault("Mitraillette-damage", 3);
         this.config.addDefault("Mitraillette-recoil", true);
+
+        this.config.addDefault("Laser-item", "STICK");
+        this.config.addDefault("Laser-reload", "minecraft:meliodas.laserreload");
+        this.config.addDefault("Laser-sound", "minecraft:meliodas.laserfire");
+        this.config.addDefault("Laser-block-hit", "minecraft:meliodas.laseroff");
+        this.config.addDefault("Laser-reload-sound", "minecraft:meliodas:custom");
+        this.config.addDefault("Laser-display-name", Utils.chat("&cLaser [{current-ammo}/{max-ammo}]"));
+        this.config.addDefault("Laser-lore", "0");
+        this.config.addDefault("Laser-max-amo", 20);
+        this.config.addDefault("Laser-min-amo", 0);
+        this.config.addDefault("Laser-reload-cooldown", 3);
+        this.config.addDefault("Laser-bullet-range", 50f);
+        this.config.addDefault("Laser-damage", 3);
+        this.config.addDefault("Laser-recoil", true);
+
+        this.config.addDefault("Invocation-item", "FEATHER");
+        this.config.addDefault("Invocation-reload", "minecraft:meliodas.invocationreload");
+        this.config.addDefault("Invocation-sound", "minecraft:meliodas.invocationfire");
+        this.config.addDefault("Invocation-block-hit", "minecraft:meliodas.invocationoff");
+        this.config.addDefault("Invocation-reload-sound", "minecraft:meliodas:custom");
+        this.config.addDefault("Invocation-display-name", Utils.chat("&cInvocation [{current-ammo}/{max-ammo}]"));
+        this.config.addDefault("Invocation-lore", "0");
+        this.config.addDefault("Invocation-max-amo", 20);
+        this.config.addDefault("Invocation-min-amo", 0);
+        this.config.addDefault("Invocation-reload-cooldown", 3);
+        this.config.addDefault("Invocation-bullet-range", 50f);
+        this.config.addDefault("Invocation-damage", 0);
+        this.config.addDefault("Invocation-recoil", true);
+
+        this.config.addDefault("Poseidon-item", "TRIDENT");
+        this.config.addDefault("Poseidon-reload", "minecraft:meliodas.poseidonreload");
+        this.config.addDefault("Poseidon-sound", "minecraft:meliodas.poseidonfire");
+        this.config.addDefault("Poseidon-block-hit", "minecraft:meliodas.poseidonoff");
+        this.config.addDefault("Poseidon-reload-sound", "minecraft:meliodas:custom");
+        this.config.addDefault("Poseidon-display-name", Utils.chat("&cPoseidon [{current-ammo}/{max-ammo}]"));
+        this.config.addDefault("Poseidon-lore", "0");
+        this.config.addDefault("Poseidon-max-amo", 20);
+        this.config.addDefault("Poseidon-min-amo", 0);
+        this.config.addDefault("Poseidon-reload-cooldown", 3);
+        this.config.addDefault("Poseidon-bullet-range", 50f);
+        this.config.addDefault("Poseidon-damage", 3);
+        this.config.addDefault("Poseidon-recoil", true);
+
+
         // add error reponse for /weapon commands
         this.config.addDefault("fweapons-error-no-permission", "&cVous n'avez pas la permission d'utiliser cette commande.");
         this.config.addDefault("give-mitraillette", "Arme : Mitraillette Give");
