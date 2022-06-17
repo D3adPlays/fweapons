@@ -33,7 +33,7 @@ public class giveCommand implements CommandExecutor {
         ItemMeta mitrailletem = mitraillete.getItemMeta();
         ItemStack laser = new ItemStack(Material.valueOf(this.plugin.getConfig().getString("Laser-item")), 1);
         ItemMeta laserm = laser.getItemMeta();
-        ItemStack invocationitem = new ItemStack(Material.valueOf(this.plugin.getConfig().getString("Invocation-item")), 1);
+        ItemStack invocationitem = new ItemStack(Material.valueOf(this.plugin.getConfig().getString("Invocation-item")), 5);
         ItemMeta invocationitemm = invocationitem.getItemMeta();
         ItemStack poseidonitem = new ItemStack(Material.valueOf(this.plugin.getConfig().getString("Poseidon-item")), 1);
         ItemMeta poseidonitemm = poseidonitem.getItemMeta();
@@ -47,8 +47,11 @@ public class giveCommand implements CommandExecutor {
                 .addEnchant(Enchantment.DEPTH_STRIDER, 1, true);
         hppotionm
                 .addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        hppotionm
+                .addEnchant(Enchantment.BINDING_CURSE, 1, true);
         hppotion
                 .setItemMeta(hppotionm);
+
         mitrailletem.setDisplayName(this.plugin.getConfig().getString("Mitraillette-display-name")
                 .replace("{current-ammo}", this.plugin.getConfig().getString("Mitraillette-max-amo"))
                 .replace("{max-ammo}", this.plugin.getConfig().getString("Mitraillette-max-amo")));
@@ -63,20 +66,26 @@ public class giveCommand implements CommandExecutor {
                 .setLore(Arrays.asList(this.plugin.getConfig().getString("Laser-max-amo")));
         laser
                 .setItemMeta(laserm);
-        invocationitemm.setDisplayName(this.plugin.getConfig().getString("Invocation-display-name")
-                .replace("{max-ammo}", this.plugin.getConfig().getString("Invocation-max-amo"))
-                .replace("{current-ammo}", this.plugin.getConfig().getString("Invocation-max-amo")));
+
+        invocationitemm.setDisplayName("§cItem d'Invocation");
+
         invocationitemm
-                .setLore(Arrays.asList(this.plugin.getConfig().getString("Invocation-max-amo")));
+                .addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
+        invocationitemm.addEnchant(Enchantment.DURABILITY, 4, true);
+
+        invocationitemm.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
+        invocationitemm.isUnbreakable();
+
         invocationitem
                 .setItemMeta(invocationitemm);
 
-        poseidonitemm.setDisplayName(this.plugin.getConfig().getString("Poseidon-display-name")
-                .replace("{max-ammo}", this.plugin.getConfig().getString("Poseidon-max-amo"))
-                .replace("{current-ammo}", this.plugin.getConfig().getString("Poseidon-max-amo")));
+        invocationitemm
+                .addEnchant(Enchantment.BINDING_CURSE, 1, true);
 
-        poseidonitemm
-                .setLore(Arrays.asList(this.plugin.getConfig().getString("Poseidon-max-amo")));
+        poseidonitemm.setDisplayName("§cLance de Poseidon");
+
         poseidonitemm
                 .addEnchant(Enchantment.LOYALTY, 5, true);
         poseidonitemm
