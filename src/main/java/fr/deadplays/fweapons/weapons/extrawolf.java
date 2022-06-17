@@ -33,29 +33,52 @@ public class extrawolf implements Listener {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
             Player p = event.getPlayer();
             Player player = event.getPlayer();
-           ItemStack item = player.getItemInHand();
+            ItemStack item = player.getItemInHand();
 
             if (item.getType() == Material.BONE) {
                 player.playSound(player.getLocation(), Sound.ENTITY_WOLF_HOWL, 4.0F, 1.0F);
-                for(int i=0; i<5; i++){
+                for (int i = 0; i < 5; i++) {
                     Wolf wolf = (Wolf) p.getWorld().spawnEntity(p.getLocation(), EntityType.WOLF);
 
                     wolf.setAdult();
                     wolf.setTamed(true);
                     wolf.setOwner(p);
                     wolf.setBreed(false);
-                    wolf.setCustomName(ChatColor.YELLOW + p.getName() + "Loup");
+                    wolf.setCustomName(ChatColor.YELLOW + p.getName() + " Loup");
                     wolf.setCustomNameVisible(true);
                     wolf.setHealth(wolf.getMaxHealth());
                     wolf.setCanPickupItems(false);
                 }
 
 
-
                 player.getItemInHand().setAmount(player.getItemInHand().getAmount() - 1);
             }
         }
     }
+
+    @EventHandler
+    public void OnInteraction(PlayerInteractEvent event) {
+        if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
+            Player p = event.getPlayer();
+            Player player = event.getPlayer();
+            ItemStack item = player.getItemInHand();
+
+            if (item.getType() == Material.BONE) {
+                for (EntityType type : EntityType.values()) {
+                    if (type.equals(EntityType.WOLF)) {
+                        for (org.bukkit.entity.Entity e : p.getWorld().getEntities()) {
+                            if (e.getType().equals(type)) {
+                                e.remove();
+                            }
+                        }
+                    }
+                }
+
+            }
+
+        }
+    }
 }
+
 
 

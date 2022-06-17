@@ -4,6 +4,7 @@ import fr.deadplays.fweapons.commands.giveCommand;
 import fr.deadplays.fweapons.weapons.extrawolf;
 import fr.deadplays.fweapons.weapons.hppotion;
 import fr.deadplays.fweapons.weapons.mitraillette;
+import fr.deadplays.fweapons.weapons.poseidon;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Creature;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,6 +30,7 @@ public final class main extends JavaPlugin {
         new giveCommand(this);
         new mitraillette(this);
         new extrawolf(this);
+        new poseidon(this);
     }
 
     public void createConfig(){
@@ -97,6 +99,8 @@ public final class main extends JavaPlugin {
         this.config.addDefault("Poseidon-bullet-range", 50f);
         this.config.addDefault("Poseidon-damage", 3);
         this.config.addDefault("Poseidon-recoil", true);
+
+        this.config.addDefault("Superpoisson-item", "STONE_HOE");
 
 
         // add error reponse for /weapon commands

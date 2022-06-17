@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -37,9 +38,20 @@ public class giveCommand implements CommandExecutor {
         ItemMeta invocationitemm = invocationitem.getItemMeta();
         ItemStack poseidonitem = new ItemStack(Material.valueOf(this.plugin.getConfig().getString("Poseidon-item")), 1);
         ItemMeta poseidonitemm = poseidonitem.getItemMeta();
+        ItemStack superpoisson = new ItemStack(Material.valueOf(this.plugin.getConfig().getString("Superpoisson-item")), 1);
+        ItemMeta superpoissonm = superpoisson.getItemMeta();
 
-
-
+        superpoissonm
+                .setDisplayName("§aLanceur de poisson");
+        superpoissonm
+                .addEnchant(Enchantment.LURE, 1, true);
+        superpoissonm
+                .addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        superpoissonm
+                .addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        superpoissonm
+                .isUnbreakable();
+        superpoisson.setItemMeta(superpoissonm);
 
         hppotionm
                 .setDisplayName("§cBarre de Survie");
