@@ -8,7 +8,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -76,6 +75,8 @@ public class giveCommand implements CommandExecutor {
                 .replace("{current-ammo}", this.plugin.getConfig().getString("Laser-max-amo")));
         laserm
                 .setLore(Arrays.asList(this.plugin.getConfig().getString("Laser-max-amo")));
+        laserm
+                .setCustomModelData(12341);
         laser
                 .setItemMeta(laserm);
 

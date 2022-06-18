@@ -2,30 +2,20 @@ package fr.deadplays.fweapons.weapons;
 
 import fr.deadplays.fweapons.main;
 import org.bukkit.*;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.block.Block;
-import org.bukkit.block.Chest;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.jetbrains.annotations.NotNull;
-
-import static jdk.nashorn.internal.objects.Global.print;
 
 
 public class poseidon implements Listener {
@@ -51,7 +41,7 @@ public class poseidon implements Listener {
         katanaitemm
                 .addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         katanaitemm
-                .addEnchant(Enchantment.DAMAGE_ALL, 500, true);
+                .addEnchant(Enchantment.DAMAGE_ALL, 1, true);
         katanaitemm
                 .addEnchant(Enchantment.DAMAGE_ARTHROPODS, 500, true);
         katanaitemm
@@ -73,7 +63,7 @@ public class poseidon implements Listener {
                 World world = player.getWorld();
 
                 world.setTime(0);
-                world.createExplosion(event.getHitBlock().getLocation(), 4.0F, false, true);
+                //world.createExplosion(event.getHitBlock().getLocation(), 4.0F, false, true);
                 world.setThundering(true);
                 world.setStorm(true);
 
@@ -86,19 +76,6 @@ public class poseidon implements Listener {
                         world.setThundering(true);
                         event.getHitBlock().getLocation().getWorld().strikeLightning(event.getHitBlock().getLocation());
                         world.setThundering(false);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.ZOMBIE);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.ZOMBIE);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.ZOMBIE);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.ZOMBIE);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.ZOMBIE);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.ZOMBIE);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.ZOMBIE);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.ZOMBIE);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.ZOMBIE);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.GIANT);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.ZOMBIE);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.BLAZE);
-                        world.spawnEntity(event.getHitBlock().getLocation(), EntityType.ZOMBIE);
                     }
                 }, 150L);
                 Bukkit.getScheduler().runTaskLater(this.plugin, new Runnable() {
@@ -120,13 +97,13 @@ public class poseidon implements Listener {
 
     @EventHandler
     //Create custom chest
-    public void onInteract(PlayerInteractEvent event) {
+    public void onInteract(PlayerInteractEvent event) throws NullPointerException {
         Player player = event.getPlayer();
         Action action = event.getAction();
         ItemStack it = event.getItem();
         Inventory inv = Bukkit.createInventory(null, 9, "Poseidon");
         if( action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
-            if(it.getType() == Material.TRIDENT) {
+            try{if(it.getType() != null && it.getType() == Material.TRIDENT) {
                 player.spawnParticle(Particle.DRAGON_BREATH, event.getPlayer().getLocation(), 100);
                 player.spawnParticle(Particle.CLOUD, event.getPlayer().getLocation(), 100);
                 player.playSound(event.getPlayer().getLocation(), Sound.ENTITY_WITHER_DEATH, 100, 10);
@@ -138,7 +115,7 @@ public class poseidon implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 3, 1));
                 player.spawnParticle(Particle.MOB_APPEARANCE, player.getLocation(), 100);
 
-            }
+            }}catch(NullPointerException ignored){}
         }
 
     }

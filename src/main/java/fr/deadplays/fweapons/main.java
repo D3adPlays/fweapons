@@ -1,20 +1,14 @@
 package fr.deadplays.fweapons;
 
 import fr.deadplays.fweapons.commands.giveCommand;
-import fr.deadplays.fweapons.weapons.extrawolf;
-import fr.deadplays.fweapons.weapons.hppotion;
-import fr.deadplays.fweapons.weapons.mitraillette;
-import fr.deadplays.fweapons.weapons.poseidon;
+import fr.deadplays.fweapons.weapons.*;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Creature;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.UUID;
 import java.util.logging.Level;
 
 public final class main extends JavaPlugin {
-    HashMap<Creature, UUID> creatureUUIDHashMap = new HashMap<>();
+
 
     FileConfiguration config;
     public main() {
@@ -26,11 +20,13 @@ public final class main extends JavaPlugin {
         this.getLogger().log(Level.INFO, Utils.chat("&aLoading Config"));
         this.createConfig();
         this.getLogger().log(Level.INFO, Utils.chat("&aLoading Commands"));
+        new fishLauncher(this);
         new hppotion(this);
         new giveCommand(this);
         new mitraillette(this);
         new extrawolf(this);
         new poseidon(this);
+        new laser(this);
     }
 
     public void createConfig(){
@@ -72,7 +68,7 @@ public final class main extends JavaPlugin {
         this.config.addDefault("Laser-damage", 3);
         this.config.addDefault("Laser-recoil", true);
 
-        this.config.addDefault("Invocation-item", "BONE");
+        this.config.addDefault("Invocation-item", "FEATHER");
         this.config.addDefault("Invocation-reload", "minecraft:meliodas.invocationreload");
         this.config.addDefault("Invocation-sound", "minecraft:meliodas.invocationfire");
         this.config.addDefault("Invocation-block-hit", "minecraft:meliodas.invocationoff");
@@ -101,6 +97,10 @@ public final class main extends JavaPlugin {
         this.config.addDefault("Poseidon-recoil", true);
 
         this.config.addDefault("Superpoisson-item", "STONE_HOE");
+
+        //add FishingLauncher config
+        this.config.addDefault("FishingLauncher-item", "BONE");
+
 
 
         // add error reponse for /weapon commands

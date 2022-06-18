@@ -32,6 +32,7 @@ public class mitraillette implements Listener {
     }
 
     public static ArrayList<Player> mitrailletteCd = new ArrayList<Player>();
+    public static ArrayList<String> killHistory = new ArrayList<String>();
 
     //on player join
     @EventHandler
