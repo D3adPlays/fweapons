@@ -20,7 +20,7 @@ public final class main extends JavaPlugin {
         this.getLogger().log(Level.INFO, Utils.chat("&aLoading Config"));
         this.createConfig();
         this.getLogger().log(Level.INFO, Utils.chat("&aLoading Commands"));
-        new fishLauncher(this);
+        new superfish(this);
         new hppotion(this);
         new giveCommand(this);
         new mitraillette(this);
@@ -68,7 +68,7 @@ public final class main extends JavaPlugin {
         this.config.addDefault("Laser-damage", 3);
         this.config.addDefault("Laser-recoil", true);
 
-        this.config.addDefault("Invocation-item", "FEATHER");
+        this.config.addDefault("Invocation-item", "BONE");
         this.config.addDefault("Invocation-reload", "minecraft:meliodas.invocationreload");
         this.config.addDefault("Invocation-sound", "minecraft:meliodas.invocationfire");
         this.config.addDefault("Invocation-block-hit", "minecraft:meliodas.invocationoff");

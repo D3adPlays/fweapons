@@ -124,7 +124,7 @@ public class giveCommand implements CommandExecutor {
 
 
                             if (args[0].equalsIgnoreCase("list")) {
-                                player.sendMessage("§bVoici la liste de toute les armes disponibles :" + "\n" + "§b- hppotion" + "\n" + "§b- mitraillette" + "\n" + "§b- laser" + "\n" + "§b- invocation" + "\n" + "§b- poseidon");
+                                player.sendMessage("§bVoici la liste de toute les armes disponibles :" + "\n" + "§b- hppotion" + "\n" + "§b- mitraillette" + "\n" + "§b- laser" + "\n" + "§b- invocation" + "\n" + "§b- poseidon" + "\n" + "§b- superpoisson");
                                 return true;
                             }
 
@@ -134,6 +134,7 @@ public class giveCommand implements CommandExecutor {
                                 player.getInventory().addItem(laser);
                                 player.getInventory().addItem(invocationitem);
                                 player.getInventory().addItem(poseidonitem);
+                                player.getInventory().addItem(superpoisson);
                                 player.sendMessage("§aVous avez reçu tout les items disponibles");
                                 return true;
                             }
@@ -161,6 +162,7 @@ public class giveCommand implements CommandExecutor {
                                         player.getInventory().addItem(laser);
                                         player.getInventory().addItem(invocationitem);
                                         player.getInventory().addItem(poseidonitem);
+                                        player.getInventory().addItem(superpoisson);
                                         player.sendMessage("§aVous avez reçu tout les items disponibles");
                                         return true;
                                     } else if (args[1].equalsIgnoreCase("invocation")) {
@@ -169,6 +171,10 @@ public class giveCommand implements CommandExecutor {
                                         return true;
                                     } else if (args[1].equalsIgnoreCase("poseidon")) {
                                         player.getInventory().addItem(poseidonitem);
+                                        player.sendMessage("§aVous avez reçu une barre de poseidon");
+                                        return true;
+                                    } else if (args[1].equalsIgnoreCase("superpoisson")) {
+                                        player.getInventory().addItem(superpoisson);
                                         player.sendMessage("§aVous avez reçu une barre de poseidon");
                                         return true;
                                     } else {
@@ -213,6 +219,7 @@ public class giveCommand implements CommandExecutor {
                                             target.getInventory().addItem(laser);
                                             target.getInventory().addItem(invocationitem);
                                             target.getInventory().addItem(poseidonitem);
+                                            target.getInventory().addItem(superpoisson);
                                             target.sendMessage("§aVous avez reçu tout les items disponibles");
                                             if (target != player) {
                                                 player.sendMessage("§aVous avez donné tout les items disponibles à " + target.getName());
@@ -230,6 +237,13 @@ public class giveCommand implements CommandExecutor {
                                             target.sendMessage("§aVous avez reçu un poseidon");
                                             if (target != player) {
                                                 player.sendMessage("§aVous avez donné un poseidon à " + target.getName());
+                                            }
+                                            return true;
+                                        } else if (args[2].equalsIgnoreCase("superpoisson")) {
+                                            target.getInventory().addItem(superpoisson);
+                                            target.sendMessage("§aVous avez reçu un super poisson");
+                                            if (target != player) {
+                                                player.sendMessage("§aVous avez donné un super poisson à " + target.getName());
                                             }
                                             return true;
                                         } else {
@@ -251,11 +265,8 @@ public class giveCommand implements CommandExecutor {
             } catch (ArrayIndexOutOfBoundsException e) {
                 sender.sendMessage("§c§oErreur de syntaxe : ");
                 sender.sendMessage("§d§nsyntaxe : /weapon all/give <player> <weapon>");
-                sender.sendMessage("§bVoici la liste de toute les armes disponibles :" + "\n" + "§b- hppotion" + "\n" + "§b- mitraillette" + "\n" + "§b- laser" + "\n" + "§b- invocation" + "\n" + "§b- poseidon");
-            } catch (NullPointerException e) {
-                sender.sendMessage("§cErreur de syntaxe");
-                sender.sendMessage("§csyntaxe : /weapon all/give <player> <weapon>");
-            } catch (NullArgumentException e) {
+                sender.sendMessage("§bVoici la liste de toute les armes disponibles :" + "\n" + "§b- hppotion" + "\n" + "§b- mitraillette" + "\n" + "§b- laser" + "\n" + "§b- invocation" + "\n" + "§b- poseidon" + "\n" + "§b- superpoisson");
+            } catch (NullPointerException | NullArgumentException e) {
                 sender.sendMessage("§cErreur de syntaxe");
                 sender.sendMessage("§csyntaxe : /weapon all/give <player> <weapon>");
             }

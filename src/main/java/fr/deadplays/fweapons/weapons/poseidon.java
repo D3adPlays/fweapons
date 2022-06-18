@@ -3,8 +3,10 @@ package fr.deadplays.fweapons.weapons;
 import fr.deadplays.fweapons.main;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Giant;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Trident;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -78,6 +80,7 @@ public class poseidon implements Listener {
                         world.setThundering(false);
                     }
                 }, 150L);
+                player.sendMessage("§6Apparition de la vague dans 5s ! Prenez le Katana afin de le tuer !");
                 Bukkit.getScheduler().runTaskLater(this.plugin, new Runnable() {
                     @Override
                     public void run() {
@@ -85,12 +88,14 @@ public class poseidon implements Listener {
                         world.setStorm(false);
                         world.setTime(6000);
                         player.getInventory().addItem(katanaitem);
-                        player.sendMessage("§6Apparition de la vague dans 5s ! Prenez le Katana afin de le tuer !");
-
+                        player.sendMessage("§6La vague est apparue!");
+                        event.getHitBlock().getLocation().getWorld().createExplosion(event.getHitBlock().getLocation(), 4.0F);
+                        player.getWorld().spawn(event.getHitBlock().getLocation(), Giant.class);
+                        for (int i = 0; i < 10; i++) {
+                            player.getWorld().spawn(event.getHitBlock().getLocation(), Zombie.class);
+                        }
                     }
                 }, 100L);
-
-
             }
         }
     }
@@ -102,20 +107,23 @@ public class poseidon implements Listener {
         Action action = event.getAction();
         ItemStack it = event.getItem();
         Inventory inv = Bukkit.createInventory(null, 9, "Poseidon");
-        if( action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
-            try{if(it.getType() != null && it.getType() == Material.TRIDENT) {
-                player.spawnParticle(Particle.DRAGON_BREATH, event.getPlayer().getLocation(), 100);
-                player.spawnParticle(Particle.CLOUD, event.getPlayer().getLocation(), 100);
-                player.playSound(event.getPlayer().getLocation(), Sound.ENTITY_WITHER_DEATH, 100, 10);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1/4, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5, 3));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 5, 2));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 2, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 5, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 3, 1));
-                player.spawnParticle(Particle.MOB_APPEARANCE, player.getLocation(), 100);
+        if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+            try {
+                if (it.getType() != null && it.getType() == Material.TRIDENT) {
+                    player.spawnParticle(Particle.DRAGON_BREATH, event.getPlayer().getLocation(), 100);
+                    player.spawnParticle(Particle.CLOUD, event.getPlayer().getLocation(), 100);
+                    player.playSound(event.getPlayer().getLocation(), Sound.ENTITY_WITHER_DEATH, 100, 10);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1 / 4, 1));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5, 3));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 5, 2));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 2, 1));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 5, 1));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 3, 1));
+                    player.spawnParticle(Particle.MOB_APPEARANCE, player.getLocation(), 100);
 
-            }}catch(NullPointerException ignored){}
+                }
+            } catch (NullPointerException ignored) {
+            }
         }
 
     }
